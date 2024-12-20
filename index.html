@@ -115,13 +115,20 @@
 
         // Play Sound Function
         function playSound(key) {
-            const audioId = soundMap[key];
-            if (audioId) {
-                const audio = document.getElementById(audioId);
-                audio.currentTime = 0; // Rewind to start
-                audio.play();
-            }
+    const audioId = soundMap[key];
+    if (audioId) {
+        const audio = document.getElementById(audioId);
+        if (audio) {
+            audio.currentTime = 0; // Rewind to start
+            audio.play().catch(error => {
+                console.error(`Error playing sound: ${audioId}`, error);
+            });
+        } else {
+            console.error(`Audio element not found for key: ${key}`);
         }
+    }
+}
+
 
         // Button Animation
         function activateButton(drum) {
